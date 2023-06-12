@@ -9,10 +9,10 @@ const SearchCard = (props) => {
         className='movieSearchImg'
         alt={props.title + " Poster"}
         ></img>
-        <p>{props.date}</p>
-        <div>
+        <p>{props.id}</p>
+        {/* <div>
           <button onClick={props.addToList}>Add to List</button>
-        </div>
+        </div> */}
     </div>
   )
 }

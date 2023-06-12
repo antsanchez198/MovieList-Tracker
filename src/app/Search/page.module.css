@@ -1,9 +1,22 @@
-.searchCard {
-    margin-top: 20px;
+.searchContainer {
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 0;
 }
 
-.movieSearchImg {
-    width: auto;
-    height: 400px;
-    display: block;
+.searchResultGrid {
+    display: grid;
+    gap: 1px;
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 1080px;
+    margin: 10px auto;
 }
+
+.searchBar {
+    width: 900px;
+    height: 40px;
+    margin: 0 auto;
+}
+

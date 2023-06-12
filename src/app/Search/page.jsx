@@ -1,6 +1,7 @@
 "use client"
 import { useEffect, useState } from "react";
 import SearchCard from '../components/SearchCard';
+import styles from './page.module.css'
 
 const Search = () => {
 
@@ -27,23 +28,24 @@ const Search = () => {
       .then(response => setSearchResults(response))
       .catch(err => console.error(err));
 
-    // console.log(searchResults, "results")
+    console.log(searchResults, "results")
   }
 
   useEffect(() => {
-    console.log(myList, "currentList")
+    // console.log(myList, "currentList")
   }, [searchResults])
 
   return (
-    <div>
-      <input type='text' placeholder='Search for a movie' onChange={(e) => searchMovie(e.target.value)}></input>
-      <div>
+    <div className={styles.searchContainer}>
+      <input type='text' className={styles.searchBar} placeholder='Search for a movie' onChange={(e) => searchMovie(e.target.value)}></input>
+      <div className={styles.searchResultGrid}>
         {searchResults && searchResults.results && searchResults.results.length > 0 ? searchResults.results.map((index) => (
           <SearchCard
             title={index.original_title}
             image={index.poster_path}
             date={index.release_date}
-            addToList={() => addMovieToList(index.id)}
+            id = {index.id}
+            // addToList={() => addMovieToList(index.id)}
           />
         )) : <p></p>}
       </div>
