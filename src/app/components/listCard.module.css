@@ -1,0 +1,11 @@
+.card {
+    width: fit-content;
+    height: fit-content;
+    background-color: red;
+}
+
+.poster {
+    width: 200px;
+    height: 100%;
+}
+

@@ -1,0 +1,7 @@
+.searchResultGrid {
+    display: grid;
+    gap: 1px;
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 1080px;
+    margin: 10px auto;
+}

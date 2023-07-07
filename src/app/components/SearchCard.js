@@ -10,9 +10,9 @@ const SearchCard = (props) => {
         alt={props.title + " Poster"}
         ></img>
         <p>{props.id}</p>
-        {/* <div>
+        <div>
           <button onClick={props.addToList}>Add to List</button>
-        </div> */}
+        </div>
     </div>
   )
 }
