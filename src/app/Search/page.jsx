@@ -8,26 +8,30 @@ import { getDocs, collection, addDoc, updateDoc, doc, setDoc } from "firebase/fi
 const Search = () => {
 
   const myMovieList = collection(db, "my-movie-list");
-  const [myMovies, setMyMovies] = useState([]);
-  const [services, setServices] = useState([])
+  let services;
   const [searchResults, setSearchResults] = useState([]);
 
-  // const addNewMovie = async (movieID, streamingPlatforms, PosterLink, MovieTitle, MovieDate) => {
+  const getMovieServices = async (movieID, posterLink, movieTitle, movieDate) => {
+    const options = {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxZTg0OWVkOTI4ODFkZmRiYTM2OWY3NjZkZGVlOGMzYiIsInN1YiI6IjY0NzkyODQwOTM4MjhlMDEzMzc2OWQ4ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.L6VSsodCiLs5M_5XdRgyQ9fqtBiYqnKUZBe-2HygVS8'
+      }
+    };
+
+    const res = await fetch(`https://api.themoviedb.org/3/movie/${movieID}/watch/providers`, options)
+    const data = await res.json();
+    try { services = data.results.US.flatrate }
+    catch {
+      services = []
+    };
+
+    await addNewMovie(movieID, posterLink, movieTitle, movieDate);
+  }
+
   const addNewMovie = async (movieID, posterLink, movieTitle, movieDate) => {
     try {
-      const options = {
-        method: 'GET',
-        headers: {
-          accept: 'application/json',
-          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxZTg0OWVkOTI4ODFkZmRiYTM2OWY3NjZkZGVlOGMzYiIsInN1YiI6IjY0NzkyODQwOTM4MjhlMDEzMzc2OWQ4ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.L6VSsodCiLs5M_5XdRgyQ9fqtBiYqnKUZBe-2HygVS8'
-        }
-      };
-
-      fetch(`https://api.themoviedb.org/3/movie/${movieID}/watch/providers`, options)
-        .then(response => response.json())
-        .then(response => setServices(response.results.US.flatrate))
-        .catch(err => console.error(err));
-
       const docData = {
         movieID: movieID,
         poster: posterLink,
@@ -41,19 +45,6 @@ const Search = () => {
     } catch (error) {
       console.log(error)
     }
-  }
-
-  const getMyMovies = async () => {
-    try {
-      const data = await getDocs(myMovieList);
-      const filteredData = data.docs.map((doc) => ({
-        ...doc.data(),
-      }))
-      setMyMovies(filteredData);
-    } catch (error) {
-      console.log(error)
-    }
-
   }
 
   const searchMovie = async (searchWord) => {
@@ -73,10 +64,6 @@ const Search = () => {
     console.log(searchResults, "results")
   }
 
-  useEffect(() => {
-    // console.log(myList, "currentList")
-  }, [searchResults])
-
   return (
     <div className={styles.searchContainer}>
       <input type='text' className={styles.searchBar} placeholder='Search for a movie' onChange={(e) => searchMovie(e.target.value)}></input>
@@ -87,7 +74,7 @@ const Search = () => {
             image={index.poster_path}
             date={index.release_date}
             id={index.id}
-            addToList={() => addNewMovie(index.id, index.poster_path, index.original_title, index.release_date)}
+            addToList={() => getMovieServices(index.id, index.poster_path, index.original_title, index.release_date)}
           />
         )) : <p></p>}
       </div>

@@ -1,71 +1,61 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import styles from './page.module.css'
-import { movieList } from '../list';
 import MyListCard from '../components/MyListCard';
+import { db } from '../firebase';
+import { getDocs, collection } from "firebase/firestore";
 
 const MyList = () => {
 
-  // var myList = [];
+  const [myMovies, setMyMovies] = useState([]);
+  const savedMoviesDatabase = collection(db, "my-movie-list");
 
-  // const searchMovie = async (searchWord) => {
-  //   const options = {
-  //     method: 'GET',
-  //     headers: {
-  //       accept: 'application/json',
-  //       Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxZTg0OWVkOTI4ODFkZmRiYTM2OWY3NjZkZGVlOGMzYiIsInN1YiI6IjY0NzkyODQwOTM4MjhlMDEzMzc2OWQ4ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.L6VSsodCiLs5M_5XdRgyQ9fqtBiYqnKUZBe-2HygVS8'
-  //     }
-  //   };
+  const getMyMovies = async () => {
+    try {
+      const data = await getDocs(savedMoviesDatabase);
+      const filteredData = data.docs.map((doc) => ({
+        ...doc.data(),
+      }))
+      setMyMovies(filteredData);
+    } catch (error) {
+      console.log(error)
+    }
 
-  //   movieList.map(index => {
-
-  //     fetch(`https://api.themoviedb.org/3/movie/${index}?language=en-US'`, options)
-  //       .then(response => response.json())
-  //       .then(response => myList.push(response))
-  //       .catch(err => console.error(err));
-
-  //     console.log(myList, "results")
-  //   })
-
-  // }
-
+  }
   useEffect(() => {
-
-    // const searchMovie = async () => {
-    //   var tempList = [];
-
-    //   const options = {
-    //     method: 'GET',
-    //     headers: {
-    //       accept: 'application/json',
-    //       Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxZTg0OWVkOTI4ODFkZmRiYTM2OWY3NjZkZGVlOGMzYiIsInN1YiI6IjY0NzkyODQwOTM4MjhlMDEzMzc2OWQ4ZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.L6VSsodCiLs5M_5XdRgyQ9fqtBiYqnKUZBe-2HygVS8'
-    //     }
-    //   };
-
-    //   movieList.map(async index => {
-
-    //     const response = await fetch(`https://api.themoviedb.org/3/movie/${index}?language=en-US'`, options)
-    //       .then(response => response.json())
-    //       .then(response => tempList.push(response))
-    //       .catch(err => console.error(err));
-
-    //   })
-
-    //   setMyList(tempList);
-
-    // }
-
-    // searchMovie();
+    getMyMovies();
   }, []);
+
+  console.log(myMovies, "check movies")
+
+  const handleOnSelect = (event) => {
+    console.log(event.target.value, "value")
+  }
 
   return (
     <div >
+      <form >
+        <label for="cars">Service:</label>
+        <select name="cars" id="cars" onChange={(e) => handleOnSelect(e)}>
+          <option value="Netflix">Netflix</option>
+          <option value="Max">Max</option>
+          <option value="Hulu">Hulu</option>
+          <option value="Prime">Prime</option>
+          <option value="Starz">Starz</option>
+          <option value="Showtime">Showtime</option>
+          <option value="FuboTv">FuboTv</option>
+          <option value="Directv Stream">Directv Stream</option>
+          <option value="Sling">Sling</option>
+        </select>
+      </form>
       <div className={styles.searchResultGrid}>
-        {movieList && movieList.map(index => {
+        {myMovies && myMovies.map(index => {
           return (
             <MyListCard
-              title={index.original_title}
-              image={index.poster_path}
+              title={index.title}
+              image={index.poster}
+              date={index.date}
+              services={index.services}
             />
           )
         }
