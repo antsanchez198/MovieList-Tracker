@@ -34,7 +34,7 @@ const MyList = () => {
 
   return (
     <div >
-      <form >
+      <form>
         <label for="cars">Service:</label>
         <select name="cars" id="cars" onChange={(e) => handleOnSelect(e)}>
           <option value="Netflix">Netflix</option>
