@@ -33,7 +33,7 @@ const MyList = () => {
   }
 
   return (
-    <div >
+    <div className="p-10" >
       <form>
         <label for="cars">Service:</label>
         <select name="cars" id="cars" onChange={(e) => handleOnSelect(e)}>
@@ -48,7 +48,7 @@ const MyList = () => {
           <option value="Sling">Sling</option>
         </select>
       </form>
-      <div className={styles.searchResultGrid}>
+      <div className="mt-10 grid grid-cols-1 gap-8 md:grid-cols-2 gap-2 lg:grid-cols-4">
         {myMovies && myMovies.map(index => {
           return (
             <MyListCard
