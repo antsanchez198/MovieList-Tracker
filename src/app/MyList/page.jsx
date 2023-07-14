@@ -48,7 +48,7 @@ const MyList = () => {
   }
 
   return (
-    <div className="p-10 text-black" >
+    <div className="px-20 py-10 text-black" >
       <form>
         <select name="cars" id="cars" onChange={(e) => handleOnSelect(e)} className="bg-slate-500 w-30 px-5 py-2 text-slate-50 text-lg rounded-lg">
           <option value="All">All</option>

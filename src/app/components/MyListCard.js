@@ -18,7 +18,7 @@ const MyListCard = (props) => {
                     }
                     )}
                 </div>
-                <button className="border-slate-500	border-solid border-2 rounded-2xl px-5 py-3 w-fit self-center mt-7 text-gray-800 font-semibold">Watch</button>
+                <button className="border-slate-500	border-solid border-2 rounded-2xl px-5 py-3 w-fit self-center mt-7 text-gray-800 font-semibold">Watched It</button>
             </div>
         </div>
     )
