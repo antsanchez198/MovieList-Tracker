@@ -65,9 +65,9 @@ const Search = () => {
   }
 
   return (
-    <div className={styles.searchContainer}>
-      <input type='text' className={styles.searchBar} placeholder='Search for a movie' onChange={(e) => searchMovie(e.target.value)}></input>
-      <div className={styles.searchResultGrid}>
+    <div className="p-10 flex flex-col">
+      <input type='text' className="self-center p-3 w-2/4 rounded-lg bg-slate-500" placeholder='Search for a movie' onChange={(e) => searchMovie(e.target.value)}></input>
+      <div className="mt-10 grid grid-cols-1 gap-8 md:grid-cols-2 gap-2 lg:grid-cols-4">
         {searchResults && searchResults.results && searchResults.results.length > 0 ? searchResults.results.map((index) => (
           <SearchCard
             title={index.original_title}
