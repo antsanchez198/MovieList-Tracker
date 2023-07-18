@@ -11,14 +11,21 @@ const MyListCard = (props) => {
             </div>
             <div className="mt-4">
                 <div className="flex flex-row w-fit gap-2">
-                    {props.services && props.services.map(index => {
-                        return (
-                            <img src={`https://image.tmdb.org/t/p/original${index.logo_path}`} className="w-12 h-12 rounded-3xl object-contain" />
+                    {props?.services?.length > 0 ?
+                        props.services && props.services.map(index => {
+                            return (
+                                <img src={`https://image.tmdb.org/t/p/original${index.logo_path}`} className="w-11 h-11 rounded-3xl object-contain shadow-md" />
+                            )
+                        }
                         )
+                        : 
+                        <div className="font-normal">No Streaming Platforms</div>
                     }
-                    )}
                 </div>
-                <button className="border-slate-500	border-solid border-2 rounded-2xl px-5 py-3 w-fit self-center mt-7 text-gray-800 font-semibold">Watched It</button>
+                <button className="border-slate-500	border-solid border-2 rounded-2xl px-5 py-3 w-fit self-center mt-7 text-gray-800 font-semibold shadow-md 
+                hover:text-slate-100 hover:bg-slate-600 hover:transition duration-300 ease-in-out hover:shadow-lg"
+                    onClick={props.deleteFunction}
+                >Watched It</button>
             </div>
         </div>
     )

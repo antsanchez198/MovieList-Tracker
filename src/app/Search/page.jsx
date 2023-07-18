@@ -22,9 +22,16 @@ const Search = () => {
 
     const res = await fetch(`https://api.themoviedb.org/3/movie/${movieID}/watch/providers`, options)
     const data = await res.json();
-    try { services = data.results.US.flatrate }
-    catch {
-      services = []
+    try {
+      if (data.results.US.flatrate !== undefined) {
+        services = data.results.US.flatrate
+      }
+      else {
+        services = []
+      }
+    }
+    catch (err) {
+      console.log(err)
     };
 
     await addNewMovie(movieID, posterLink, movieTitle, movieDate);
