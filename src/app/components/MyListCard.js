@@ -3,13 +3,10 @@ import styles from './listCard.module.css'
 
 const MyListCard = (props) => {
     return (
-        <div className="auto-cols-max backdrop-blur-sm bg-white/30 p-6 w-fit text-center shadow-md font-sans flex flex-col justify-between">
-            <div className="">
+        <div className="rounded-xl backdrop-blur-sm bg-white/30 h-50 w-fit text-center shadow-lg font-sans flex flex-col justify-between hover:shadow-xl">
+            <img src={`https://image.tmdb.org/t/p/original${props.image}`} className="w-auto basis-1/2 rounded-t-xl drop-shadow-xl" />
+            <div className="my-4 flex justify-center items-center flex-col gap-5 basis-1/2">
                 <h3 className="text-xl font-bold text-gray-800">{props.title}</h3>
-                <img src={`https://image.tmdb.org/t/p/original${props.image}`} className="h-25 w-15 mt-5 rounded-2xl drop-shadow-xl" />
-                {/* <h2 className="text-lg font-semibold m-3">{props.date}</h2> */}
-            </div>
-            <div className="mt-4">
                 <div className="flex flex-row w-fit gap-2">
                     {props?.services?.length > 0 ?
                         props.services && props.services.map(index => {
@@ -18,16 +15,29 @@ const MyListCard = (props) => {
                             )
                         }
                         )
-                        : 
+                        :
                         <div className="font-normal">No Streaming Platforms</div>
                     }
                 </div>
-                <button className="border-slate-500	border-solid border-2 rounded-2xl px-5 py-3 w-fit self-center mt-7 text-gray-800 font-semibold shadow-md 
-                hover:text-slate-100 hover:bg-slate-600 hover:transition duration-300 ease-in-out hover:shadow-lg"
-                    onClick={props.deleteFunction}
-                >Watched It</button>
+                <div className='flex flex-row gap-3 items-center justify-center'>
+                    <button className="border-green-600	border-solid border-2 bg-green-200 rounded-2xl px-3 py-1 w-fit self-center cursor-pointer text-green-600 font-semibold shadow-md 
+                hover:text-slate-100 hover:bg-green-600 text-white-800 hover:border-white-800 hover:transition duration-300 ease-in-out hover:shadow-xl "
+                        onClick={props.deleteFunction}
+                    ><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-thumb-up" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M7 11v8a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1v-7a1 1 0 0 1 1 -1h3a4 4 0 0 0 4 -4v-1a2 2 0 0 1 4 0v5h3a2 2 0 0 1 2 2l-1 5a2 3 0 0 1 -2 2h-7a3 3 0 0 1 -3 -3"></path>
+                        </svg></button>
+                    <button className="border-red-600 bg-red-200 border-solid border-2 rounded-2xl px-3 py-1 w-fit self-center cursor-pointer text-red-600 font-semibold shadow-md 
+                hover:text-slate-100 hover:bg-red-600 text-white-800 hover:transition duration-300 ease-in-out hover:shadow-xl "
+                        onClick={props.deleteFunction}
+                    ><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-thumb-down" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M7 13v-8a1 1 0 0 0 -1 -1h-2a1 1 0 0 0 -1 1v7a1 1 0 0 0 1 1h3a4 4 0 0 1 4 4v1a2 2 0 0 0 4 0v-5h3a2 2 0 0 0 2 -2l-1 -5a2 3 0 0 0 -2 -2h-7a3 3 0 0 0 -3 3"></path>
+                        </svg></button>
+                </div>
             </div>
         </div>
+        
     )
 }
 
